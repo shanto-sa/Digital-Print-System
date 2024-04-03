@@ -1,0 +1,235 @@
+/*
+ * Note that this is toastr v2.1.3, the "latest" version in url has no more maintenance,
+ * please go to https://cdnjs.com/libraries/toastr.js and pick a certain version you want to use,
+ * make sure you copy the url from the website since the url may change between versions.
+ * */
+.toast-title {
+    font-weight: bold;
+}
+.toast-message {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    font-weight: 500;
+}
+.toast-message a,
+.toast-message label {
+    color: #fcfdfd;
+}
+.toast-message a:hover {
+    color: #cccccc;
+    text-decoration: none;
+}
+.toast-close-button {
+    position: relative;
+    right: -0.3em;
+    top: -0.3em;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    color: #8d97a1;
+    -webkit-text-shadow: 0 1px 0 #fcfdfd;
+    text-shadow: 0 1px 0 #fcfdfd;
+    opacity: 0.8;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+    filter: alpha(opacity=80);
+    line-height: 1;
+}
+.toast-close-button:hover,
+.toast-close-button:focus {
+    color: #233446;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 0.4;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+    filter: alpha(opacity=40);
+}
+.rtl .toast-close-button {
+    left: -0.3em;
+    float: left;
+    right: 0.3em;
+}
+/*Additional properties for button version
+   iOS requires the button element instead of an anchor tag.
+   If you want the anchor version, it requires `href="#"`.*/
+button.toast-close-button {
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    -webkit-appearance: none;
+}
+.toast-top-center {
+    top: 0;
+    right: 0;
+    width: 100%;
+}
+.toast-bottom-center {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+}
+.toast-top-full-width {
+    top: 0;
+    right: 0;
+    width: 100%;
+}
+.toast-bottom-full-width {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+}
+.toast-top-left {
+    top: 12px;
+    left: 12px;
+}
+.toast-top-right {
+    top: 12px;
+    right: 12px;
+}
+.toast-bottom-right {
+    right: 12px;
+    bottom: 12px;
+}
+.toast-bottom-left {
+    bottom: 12px;
+    left: 12px;
+}
+#toast-container {
+    position: fixed;
+    z-index: 999999;
+    pointer-events: none;
+    /*overrides*/
+}
+#toast-container * {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#toast-container > div {
+    position: relative;
+    pointer-events: auto;
+    overflow: hidden;
+    margin: 0 0 6px;
+    padding: 15px 15px 15px 50px;
+    width: 300px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    background-position: 15px center;
+    background-repeat: no-repeat;
+    -moz-box-shadow: 0 0 26px #cfcfcf;
+    -webkit-box-shadow: 0 0 26px #cfcfcf;
+    box-shadow: 0 0 26px #cfcfcf;
+}
+#toast-container > div.rtl {
+    direction: rtl;
+    padding: 15px 50px 15px 15px;
+    background-position: right 15px center;
+}
+/* #toast-container > div:hover {
+    -moz-box-shadow: 0 0 12px #8592a3;
+    -webkit-box-shadow: 0 0 12px #8592a3;
+    box-shadow: 0 0 12px #8592a3;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    filter: alpha(opacity=100);
+    cursor: pointer;
+} */
+#toast-container > .toast-info {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAH1SURBVHgBrVRLUttAEH3dI7Jm4ZCtfII4eyD2CezcwJwgzgninCDhBCQnQJzAxOYA5AQhq1SEKasqSzPTdI8syriEMS5elUq/6afXmtePUIfRbBfwPZegK0ItIkntsQCXBFyBkPn9xo+6Ulp94Mb/eiB3ope7WAtRYhquEvODm/HNVyU7XZCdC2iwk8yb/qBBdjCFd5BwJKJkoFQlf+fJzefa79kLN5kKj6eznYt8gCfAP/OBrp9ZTXKhQpZbduO8D+ITERTBhw46e5fYAPrhVhAexY4EH/xhIysJJ9e/rQVt6dN8f+/baqGpsLO1XaeUmE1h4W9dk6M6JbP/Ukf2FML7WHNuKp3zvURb7cbemYaPFdUpW4aEcKYq23rVYyKksWgefmFLhOAzlKre0rr/U+E5axgvDIbQVbwa/U2xLUZ5y042mgyS6Dlm18OWcA6RkET+qEKcxRsud3srEJXjx3TK3jvboUKPtpkUz4SO7MfKxxYUi9GbasLAQqHQaemowTcaPY25lkt8OXqEvhHGXS5nUI7thc3mJkpNWUWmtV+qGHvgq2RyPdTIWsTRIu/M8FVYqBM4edVVAtvAdkkgx7cHr+8F1ARs3jdSIkqxBpZMBH/kD99ky88fd34ZaV31VqqLSp+pZ8lsps7w/n+GTrNYrbsD6tHn+ldTefoAAAAASUVORK5CYII=") !important;
+}
+#toast-container > .toast-error {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAE2SURBVHgBrZTfTcMwEMa/M+IJCWUAirwBZQCqblCYALoBG5BOgDoBYgLCBlVYIBtgKANE4pken5OmapM0Udr8HiLLOX++8/0R1KDjIMDq/B6qYwiG3LLrPwlUHEQiib9f685KRexm8MDdZy4DNON4PCwL7wjq6JJC+ohOZKKziuBhYlXRTHAd5guOQXEnH8soFxwNPrF5+Jr742Vhpw2SDub32mTeNYh1wOLv7NZwMUFfiKGgiEV/XNFDHaI/rEHPSFuGu6GJYf0k6A35Ysir91Yz1mFRiy2WbwYnpxEXKY7H+UFhZOFSjqlpk6XvkJYu8d6F/ptl2fcgj81xMDIrxlhpfF2E3HpCJ3Qu8c9mSu0bsF7UopmU8U1l4aPb8nXvvfnQmLBSLc2KbnJ5mbEymMzs/Uv8A9pwazjDEwPKAAAAAElFTkSuQmCC") !important;
+}
+#toast-container > .toast-success {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAEhSURBVHgBrdNBboJAFAbg94akjTuOgKnpGhdatt6gPUHbE3TsBaQngJ6g7UnosrWLsjYaPAJrE+c5D0VBQAP4rx4k883PZAC4QOTCmbxGwwnPCC3DGAK5CSbIFdAi4+juJcU4pAAbNxxHziMo+jy8oTfvZuo2AgsYwbvX+5U81gaLGH15velT+lgLlNHARoWBXmaWYRyR7irnw/u2WNIw8wkxrdXIv/0Lz2MQ6jPrl20sQCO72URDBHI2sPOYYx1jZHRGUBFBxkoCUliGbjEqYH73O64CcbvQNpGuAiBM28Wk8EHf/A89W7t3SxKd/ilsD1ag2WgMdbOfJZxJ7tokqLr+z7SqhXFy/7LfDWNezEgTrNDw0NSxYK3Pz8DnOhhnA0N8mGVZIItqAAAAAElFTkSuQmCC") !important;
+}
+#toast-container > .toast-warning {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAEtSURBVHgBrZLBTcNAEEXfhBwQAsl04HSAOzAdwAGuQAehgpAKoAPfASl0AB1AB0kJHHIj0jLebJK1vV4nUb5kz+7O6s/fmS90wExIWfBpN30u5ZpZ7H6PLiwo9J/ab7lmb0Lzyr2G3DvKzVtlvxshwihwWpiChF0JVUlJlgZSKScMadUQItsMInVHjy4+u/jLnIE8aNxK4R9PHhlyw4sW+PBuJJwG29EktOqEO7oxDA2oqXALa3gYRQkDNulCw0aVoWhySmiyc8451r71bb6Omeaz1YB6HlmbTeBMp3tkBxVCxUZWYcAmdazskbTmnY2WCms2qcDYJw20YOYR17G2kTh1U9pg+JFbS1a25VvDReRuJuadiS6uiMGoqcU+NyeOL9GqhgOi7OGYw2H8D+bcWcrXJkmKAAAAAElFTkSuQmCC") !important;
+}
+#toast-container.toast-top-center > div,
+#toast-container.toast-bottom-center > div {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#toast-container.toast-top-full-width > div,
+#toast-container.toast-bottom-full-width > div {
+    width: 96%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.toast {
+    background-color: #fcfdfd;
+    color: #233446;
+}
+.toast-success {
+    background-color: #fcfdfd;
+    color: #71dd37;
+}
+.toast-error {
+    background-color: #fcfdfd;
+    color: #ff3e1d;
+}
+.toast-info {
+    background-color: #fcfdfd;
+    color: #03c3ec;
+}
+.toast-warning {
+    background-color: #fcfdfd;
+    color: #ffab00;
+}
+.toast-progress {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    background-color: #b3c2d4;
+    opacity: 0.4;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+    filter: alpha(opacity=40);
+}
+/*Responsive Design*/
+@media all and (max-width: 240px) {
+    #toast-container > div {
+        padding: 8px 8px 8px 50px;
+        width: 11em;
+    }
+    #toast-container > div.rtl {
+        padding: 8px 50px 8px 8px;
+    }
+    #toast-container .toast-close-button {
+        right: -0.2em;
+        top: -0.2em;
+    }
+    #toast-container .rtl .toast-close-button {
+        left: -0.2em;
+        right: 0.2em;
+    }
+}
+@media all and (min-width: 241px) and (max-width: 480px) {
+    #toast-container > div {
+        padding: 8px 8px 8px 50px;
+        width: 18em;
+    }
+    #toast-container > div.rtl {
+        padding: 8px 50px 8px 8px;
+    }
+    #toast-container .toast-close-button {
+        right: -0.2em;
+        top: -0.2em;
+    }
+    #toast-container .rtl .toast-close-button {
+        left: -0.2em;
+        right: 0.2em;
+    }
+}
+@media all and (min-width: 481px) and (max-width: 768px) {
+    #toast-container > div {
+        padding: 15px 15px 15px 50px;
+        width: 25em;
+    }
+    #toast-container > div.rtl {
+        padding: 15px 50px 15px 15px;
+    }
+}
